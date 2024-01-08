@@ -1,11 +1,18 @@
 from flask import Flask, abort, request
 from tempfile import NamedTemporaryFile
 import scipy
-import src.TtsModel as tts 
-import src.LlamaModel as llama
-import src.WhisperModel as whisper
+from TtsModel import TtsModel
+from LlamaModel import LlamaModel
+from WhisperModel import WhisperModel
+import threading
 
 app = Flask(__name__)
+
+whisperModel = WhisperModel()
+llamaModel = LlamaModel()
+ttsModel = TtsModel()
+
+
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe_request():
@@ -17,7 +24,7 @@ def transcribe_request():
     for filename, handle in request.files.items():
         temp = NamedTemporaryFile()
         handle.save(temp)
-        result = whisper.transcribe_file(temp.name)
+        result = whisperModel.transcribe_file(temp.name)
         results.append({
             'transcript': result['text']
         })
@@ -34,11 +41,11 @@ def generate_request():
     for filename, handle in request.files.items():
         temp = NamedTemporaryFile()
         handle.save(temp)
-        result = transcribe_file(temp.name)
+        result = whisperModel.transcribe_file(temp.name)
         instruction="###Instruction:" + result['text'] + "###Response:"
-        output = LlamaModel.get_instance()(instruction)
-        audio = TtsModel.get_instance()[1].generate(TtsModel.get_instance()[0](output["choices"][0]["text"], return_tensors="pt"))
-        wav = "this is a wav" # scipy.io.wavfile.write("bark_out.wav", rate=TtsModel.get_instance()[2], data=audio.cpu().numpy().squeeze())
+        output = llamaModel.generate(instruction)
+        audio = ttsModel.speak(output["choices"][0]["text"])
+        wav = scipy.io.wavfile.write("bark_out.wav", rate=ttsModel.SAMPLE_RATE, data=audio.squeeze())
     
         
         results.append({

@@ -5,9 +5,9 @@ from llama_cpp import Llama
 class LlamaModel:
     _model = None
 
-    def load_model(self):
-        model = Llama(model_path="./models/llama-2-7b-chat.Q2_K.gguf")
-        return model
+    def __init__(self):
+        self._model = Llama(model_path="./models/llama-2-7b-chat.Q2_K.gguf")
+        
 
     def get_instance(self):
         if self._model is None:
@@ -17,4 +17,7 @@ class LlamaModel:
     def unload_model(self):
         self._model = None
         return True
+
+    def generate(self, instruction):
+        return self._model(instruction)
     

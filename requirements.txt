@@ -1,0 +1,9 @@
+numpy
+pandas
+scikit-learn
+tensorflow
+flask
+tempfile2
+whisper
+llama-cpp-python
+
