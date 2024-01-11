@@ -4,6 +4,10 @@ import scipy
 from TtsModel import TtsModel
 from LlamaModel import LlamaModel
 from WhisperModel import WhisperModel
+from pprint import pprint
+import json
+
+
 import threading
 
 app = Flask(__name__)
@@ -31,6 +35,26 @@ def transcribe_request():
 
     return {'results': results}
 
+#Generate text from text
+
+@app.route('/text', methods=['POST'])
+def generate_text():
+
+    text = request.data.decode('utf-8')
+    instruction="###Instruction:" + text + "\n###Response:"
+    output = llamaModel.generate(instruction)
+
+
+    print("INPUT: " + text)
+    pprint("OUTPUT: " + json.dumps(output))
+    
+    results = [{
+        'output': output["choices"][0]["text"]
+    }]
+
+    return {'results': results}
+
+
 @app.route('/generate', methods=['POST'])
 def generate_request():
     if not request.files:
@@ -56,4 +80,7 @@ def generate_request():
 
     # This will be automatically converted to JSON.
     return {'results': results}
+
+
+
 
