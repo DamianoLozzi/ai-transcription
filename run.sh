@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Create a virtual environment if not present
+
+if [ ! -d "venv" ]; then
+    python3 -m venv venv
+fi
+
 source ./venv/bin/activate
 
 export PYTHONPATH=$PYTHONPATH:$(pwd)/src
