@@ -58,4 +58,15 @@ class FileUtils:
                                 f"File not found: {file_name}")
             raise e
         
-        
+    def write_on_file(self, file_name, content):
+        lm.starting_process(self.__class__.__name__, f"write_on_file: {file_name}")
+        try:
+            with open(file_name, 'w') as file:
+                file.write(content)
+            lm.ending_process(self.__class__.__name__, f"write_on_file: {file_name}", True, f"Content written on file: {file_name}")
+        except FileNotFoundError as e:
+            lm.ending_process(self.__class__.__name__,
+                                f"write_on_file: {file_name}",
+                                False,
+                                f"File not found: {file_name}")
+            raise e
