@@ -93,12 +93,14 @@ def save_segments_to_files(segments_by_speaker, audio, sample_rate):
                                      channels=2)
 
         file_obj = io.BytesIO()
-
-        sf.write(file_obj, segment_audio.raw_data, sample_rate)
-
+        segment_audio_np = np.frombuffer(segment_audio.raw_data, dtype=np.int16)
+        if len(segment_audio_np.shape) == 1:  
+            segment_audio_np = segment_audio_np.reshape(-1, 1)
+        sf.write(file_obj, segment_audio_np, sample_rate, format='wav')
         file_obj.seek(0)
 
         yield file_obj
+        
         
 def split_until_less_than_30_seconds(file_object):
     if file_object.duration_seconds <= 30:
@@ -146,19 +148,10 @@ def enhance_audio(model,df_state,audio):
     return file_obj
 
 def split_by_silence(audio):
-    with io.BytesIO() as file_obj:
-        sf.write(file_obj, audio.raw_data, audio.frame_rate)
-        file_obj.seek(0)
-        file_object = AudioSegment.from_file(file_obj, format="mp3")
-        segments_silence = split_on_silence(file_object, min_silence_len=1000, silence_thresh=-60, keep_silence=250)
-        for segment in segments_silence:
-            file_obj = io.BytesIO()
-
-            sf.write(file_obj, segment.export(f"segment_{segments_silence.index(segment)}.wav", format="wav").raw_data)
-
-            file_obj.seek(0)
-
-            yield file_obj
+    segments_silence = split_on_silence(audio, min_silence_len=1000, silence_thresh=-60, keep_silence=250)
+    for segment in segments_silence:
+        yield segment.export(f"segment_{segments_silence.index(segment)}.wav", format="wav")
+ 
 
 def transcribe(whisper_model,audio):
     return whisper.transcribe(whisper_model, audio)

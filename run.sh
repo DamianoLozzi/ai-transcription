@@ -2,12 +2,21 @@
 
 arg1=$1
 
+if [ ! -d "venv" ]; then
+    echo "Creating virtual environment..."
+    python3 -m venv venv
+fi
+
+source ./venv/bin/activate
+
+
 # if .install_done file is not present,Install requirements
 if [ ! -f ".install_done" ]; then
     sudo apt-get update
     sudo apt-get install -y python3 python3-venv python3-pip ffmpeg
     pip install -r requirements.txt
-    source ./venv/bin/activate
+    # Create a virtual environment if not present
+ 
 
     # Check if installation was successful
     if [ $? -eq 0 ]; then
