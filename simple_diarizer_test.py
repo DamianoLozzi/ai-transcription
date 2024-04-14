@@ -3,16 +3,16 @@ from simple_diarizer.diarizer import Diarizer
 
 
 
-AUDIO_FILE = 'src/resources/test_files/LE_listening_A2_Changing_a_meeting_time.mp3' 
-THRESHOLD = 0.01
+AUDIO_FILE = 'src/resources/test_files/fables_01_02_aesop.mp3'
+THRESHOLD = 0.5
 FILE_NAME = AUDIO_FILE.split('/')[-1].split('.')[0]
 print("loading model")
 diar = Diarizer(
     embed_model='xvec',  # 'xvec' and 'ecapa' supported
     cluster_method='sc'  # 'ahc' and 'sc' supported
 )
-#segments = diar.diarize(AUDIO_FILE, num_speakers=None, threshold=THRESHOLD)
-segments = diar.diarize(AUDIO_FILE, num_speakers=3)
+segments = diar.diarize(AUDIO_FILE, num_speakers=None, threshold=THRESHOLD)
+#segments = diar.diarize(AUDIO_FILE, num_speakers=3)
 
 
 # Load the audio file

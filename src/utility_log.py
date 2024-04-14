@@ -1,4 +1,5 @@
 import logging
+import coloredlogs
 
 class LogManager:
     def __init__(self, name, level=logging.INFO):
@@ -6,7 +7,17 @@ class LogManager:
         self.logger.setLevel(level)
         ch = logging.StreamHandler()
         ch.setLevel(level)
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = coloredlogs.ColoredFormatter(
+            "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+            datefmt='%Y-%m-%d %H:%M:%S',
+            level_styles={'info': {'color': 'white'},
+                          'debug': {'color': 'cyan'},
+                          'warning': {'color': 'yellow'},
+                          'error': {'color': 'magenta'},
+                          'critical': {'color': 'red', 'bold': True}},
+            field_styles={'asctime': {'color': 'green'},
+                          'name': {'color': 'cyan'}}
+        )
         ch.setFormatter(formatter)
         self.logger.addHandler(ch)
 
