@@ -1,5 +1,4 @@
 import os
-import threading
 import whisper
 import soundfile as sf
 from simple_diarizer.diarizer import Diarizer
