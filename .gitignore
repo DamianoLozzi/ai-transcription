@@ -161,3 +161,11 @@ cython_debug/
 models/*
 bark_out.wav
 .install_done
+response2.json
+pretrained_models/spkrec-xvect-voxceleb/classifier.ckpt
+pretrained_models/spkrec-xvect-voxceleb/embedding_model.ckpt
+pretrained_models/spkrec-xvect-voxceleb/hyperparams.yaml
+pretrained_models/spkrec-xvect-voxceleb/label_encoder.ckpt
+pretrained_models/spkrec-xvect-voxceleb/mean_var_norm_emb.ckpt
+pretrained_models/*
+response2.json
