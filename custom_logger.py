@@ -1,4 +1,6 @@
 import logging
+import os
+from logging.handlers import RotatingFileHandler
 
 
 class ColoredFormatter(logging.Formatter):
@@ -18,12 +20,26 @@ class ColoredFormatter(logging.Formatter):
             record.levelname = levelname_color
         return super().format(record)
 
+
+log_directory = os.path.join(os.path.expanduser('~/var/log'), 'py_assistant_logs')
+if not os.path.exists(log_directory):
+    os.makedirs(log_directory)
+log_file_path = os.path.join(log_directory, "py_assistant.log")
+
 logger = logging.getLogger()
-handler = logging.StreamHandler()
-formatter = ColoredFormatter('%(asctime)s | %(levelname)s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.DEBUG)  # Set the logger's level
+
+# File handler setup
+file_handler = RotatingFileHandler(log_file_path, maxBytes=5*1024*1024, backupCount=5)
+file_formatter = ColoredFormatter('%(asctime)s | %(levelname)s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
+
+# Console handler setup
+console_handler = logging.StreamHandler()
+console_formatter = ColoredFormatter('%(asctime)s | %(levelname)s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+console_handler.setFormatter(console_formatter)
+logger.addHandler(console_handler)
 
 def error(msg, *args, **kwargs):
     logger.error(msg, *args, **kwargs)
