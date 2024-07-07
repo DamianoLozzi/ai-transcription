@@ -4,13 +4,13 @@ import numpy as np
 import tempfile
 import os
 from threading import Lock
-import logging
+import custom_logger as logging 
 import traceback
 
 
 audio_enhancement = AudioEnhancement()
 aus=AudioSegmentation()
-transcriber=Transcription("tiny")
+transcriber=Transcription("small")
 transcribe_lock = Lock()
 enhance_lock = Lock()
 
@@ -59,10 +59,10 @@ def transcribe(file,suffix,speakers):
         if speakers == 1:
             text = []
             print("Transcribing file:", temp_file_path)
-            segments = list(aus.split_on_silence(file_path=temp_file_path))
-            for segment in segments:
+            for segment in aus.split_on_silence(file_path=temp_file_path):
+                logging.debug(f"Transcribing segment: {segment}")
                 with transcribe_lock:
-                    text.append(transcriber.transcribe(segment))
+                    text.append(transcriber.transcribe(segment)['text'])
             transcriptions.append({"speaker": "0", "text": " ".join(text)})
         else :
             diarization = Diarization(embed_model='xvec', cluster_method='sc')
