@@ -1,1 +1,0 @@
-{"transcription":" Questa è una prova di trascrizione per whisper ai."}

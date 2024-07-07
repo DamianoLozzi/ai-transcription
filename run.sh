@@ -1,52 +1,91 @@
 #!/bin/bash
 
-arg1=$1
+# update the package list
 
-# if .install_done file is not present,Install requirements
-if [ ! -f ".install_done" ]; then
-    sudo apt-get update
-    sudo apt-get install -y python3 python3-venv python3-pip ffmpeg
-    pip install -r requirements.txt
-    source ./venv/bin/activate
+UPDATED=0
 
-    # Check if installation was successful
-    if [ $? -eq 0 ]; then
-        echo "Installation successful."
-        touch .install_done
-    else
-        echo "Installation failed."
-        exit 1
+# print start message in cyan
+
+
+
+update_package_list() {
+    if [ $UPDATED -eq 0 ]; then
+        echo -e "\e[36mUpdating package list\e[0m"
+        sudo apt update -y && echo -e "Package list updated" || (echo -e "\e[31mFailed to update package list\e[0m" && exit 1)
+        UPDATED=1
     fi
-    else
-    echo "Requirements already installed."
+}
+
+setup(){
+# if ffmpeg is not installed, install it
+if ! [ -x "$(command -v ffmpeg)" ]; then
+    echo -e "\e[36mInstalling ffmpeg\e[0m"
+    update_package_list
+    sudo apt install ffmpeg -y && echo -e "ffmpeg installed" || (echo -e "\e[31mFailed to install ffmpeg\e[0m" && exit 1)
+else 
+    echo -e "\e[32mffmpeg already installed\e[0m"
 fi
 
-# Create a virtual environment if not present
-if [ ! -d "venv" ]; then
-    echo "Creating virtual environment..."
-    python3 -m venv venv
-fi
-# Activate the virtual environment
-echo "Activating virtual environment..."
-source ./venv/bin/activate
-# Add the src directory to the PYTHONPATH
-echo "Adding src directory to PYTHONPATH..."
-export PYTHONPATH=$PYTHONPATH:$(pwd)/src
-
-# Run all test files that start with "test_" if arg1 not "--skipTests"
-if [ "$arg1" != "--skipTests" ]; then
-    echo "Running tests..."
-    pytest  -n auto -v src/test_*
-    else 
-    echo "Skipping tests..."
-fi
-
-# If the tests pass, run the app
-if [ $? -eq 0 ]; then
-    echo "Tests passed, starting the app..."
-    export FLASK_APP=transcribe.py
-    # Run the application
-    flask run
+# if python3 is not installed, install it
+if ! [ -x "$(command -v python3)" ]; then
+    echo -e "\e[36mInstalling python3\e[0m"
+    update_package_list
+    sudo apt install python3 -y && echo -e "python3 installed" || (echo -e "\e[31mFailed to install python3\e[0m" && exit 1)
 else
-    echo "Tests failed, not starting the app."
+    echo -e "\e[32mpython3 already installed\e[0m"
 fi
+
+# if python3-venv is not installed, install it
+if !  dpkg -s python3-venv &> /dev/null ; then
+    echo -e "\e[36mInstalling python3-venv\e[0m"
+    update_package_list
+    sudo apt install python3-venv -y && echo -e "python3-venv installed" || (echo -e "\e[31mFailed to install python3-venv\e[0m" && exit 1)
+else
+    echo -e "\e[32mpython3-venv already installed\e[0m"
+fi
+
+# if pip is not installed, install it
+if ! [ -x "$(command -v pip)" ]; then
+    echo -e "\e[36mInstalling pip\e[0m"
+    update_package_list
+    sudo apt install python3-pip -y && echo -e "pip installed" || (echo -e "\e[31mFailed to install pip\e[0m" && exit 1)
+else
+    echo -e "\e[32mpip already installed\e[0m"
+fi
+
+# if git is not installed, install it
+if ! [ -x "$(command -v git)" ]; then
+    echo -e "\e[36mInstalling git\e[0m"
+    update_package_list
+    sudo apt install git -y && echo -e "git installed" || (echo -e "\e[31mFailed to install git\e[0m" && exit 1)
+else
+    echo -e "\e[32mgit already installed\e[0m"
+fi
+
+# create a virtual environment if it does not exist
+if [ ! -d "venv" ]; then
+    echo -e "\e[36mCreating virtual environment\e[0m"
+    python3 -m venv venv && echo -e "\e[32mVirtual environment created\e[0m" || (echo -e "\e[31mFailed to create virtual environment\e[0m" && exit 1)
+else
+    echo -e "\e[32mVirtual environment already exists\e[0m"
+fi
+
+# activate the virtual environment
+source venv/bin/activate && echo -e "\e[32mVirtual environment activated\e[0m" || (echo -e "\e[31mFailed to activate virtual environment\e[0m" && exit 1)
+
+# install requirements if not already installed
+if [ ! -f ".install_done" ]; then
+    echo -e "\e[36mInstalling requirements\e[0m"
+    pip install -r requirements.txt && touch .install_done && echo -e "\e[32mRequirements installed\e[0m" || (echo -e "\e[31mFailed to install requirements\e[0m" && exit 1)
+else
+    echo -e "\e[32mRequirements already installed\e[0m"
+fi
+}
+
+echo -e "\e[36mSetting up the environment\e[0m"
+setup && echo -e "\e[32mSetup complete\e[0m" || (echo -e "\e[31mSetup failed\e[0m" && exit 1)
+
+
+# run the flask app
+echo -e "\e[36mRunning the flask app\e[0m"
+flask run && echo -e "\e[32mExited successfully\e[0m" || echo -e "\e[31mExited with error code $?\e[0m"
