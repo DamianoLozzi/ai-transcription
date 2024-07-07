@@ -69,7 +69,7 @@ class Diarization:
             self.audio, self.sample_rate = sf.read(self.audio_file)
             logging.info(f"Loaded audio with {len(self.audio)} samples at {self.sample_rate} Hz")
         except Exception as e:
-            logging.warning(message, category=None, stacklevel=1)(f"Attempting to convert audio file to wav: {e}")
+            logging.warning(f"Error Loading file, attempting to convert audio file to wav: {e}")
             #attempt to convert the audio file to wav
             try:
                 audio_file_path = self.audio_file.split('.')[0]
