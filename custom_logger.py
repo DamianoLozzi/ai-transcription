@@ -20,7 +20,7 @@ class ColoredFormatter(logging.Formatter):
 
 logger = logging.getLogger()
 handler = logging.StreamHandler()
-formatter = ColoredFormatter('%(levelname)s - %(message)s')
+formatter = ColoredFormatter('%(asctime)s | %(levelname)s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
