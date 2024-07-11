@@ -7,11 +7,8 @@ more-itertools==10.2.0
 numba==0.59.1
 numpy==1.26.4
 openai-whisper @ git+https://github.com/openai/whisper.git@ba3f3cd54b0e5b8ce1ab3de13e32122d0d5f98ab
-langchain==0.2.7
-langchain-core==0.2.7
-langchain-community==0.2.13
-langchain-text-splitters==0.2.2
-llama_cpp_python==0.2.82
+languagemodels==0.20.0
+psutil==6.0.0
 pydub==0.25.1
 scikit-learn==1.5.0
 scipy==1.13.1
