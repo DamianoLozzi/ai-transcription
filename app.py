@@ -78,9 +78,9 @@ def transcribe(file,suffix,speakers):
                 with transcribe_lock:
                     transcription = transcriber.transcribe(file_path)
                 transcriptions.append({"speaker": str(speaker), "text": transcription['text']})
-        transcriptions.append({"Title:": tg.generate_name(transcriptions[0]['text'],"title")})
+        title = tg.generate_name(transcriptions[0]['text'],"title")
         log.critical("filename: "+tg.generate_name(transcriptions[0]['text'],"filename"))
-        return transcriptions
+        return {"title": title, "transcriptions": transcriptions}
     except Exception as e:
         logging.error(f"An error occurred during transcription: {e}")
         logging.error(traceback.format_exc())

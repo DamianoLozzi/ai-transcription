@@ -6,6 +6,7 @@ import languagemodels as lm
 import custom_logger as log
 from datetime import datetime
 
+
 def bytes_to_gb(bytes) -> float:
     try:
         log.debug(f"Converting {bytes} bytes to GB")
