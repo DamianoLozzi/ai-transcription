@@ -6,11 +6,13 @@ import os
 from threading import Lock
 import custom_logger as logging 
 import traceback
+import text_generation as tg
+import custom_logger as log
 
 
 audio_enhancement = AudioEnhancement()
 aus=AudioSegmentation()
-transcriber=Transcription("small")
+transcriber=Transcription("tiny")
 transcribe_lock = Lock()
 enhance_lock = Lock()
 
@@ -76,6 +78,8 @@ def transcribe(file,suffix,speakers):
                 with transcribe_lock:
                     transcription = transcriber.transcribe(file_path)
                 transcriptions.append({"speaker": str(speaker), "text": transcription['text']})
+        transcriptions.append({"Title:": tg.generate_name(transcriptions[0]['text'],"title")})
+        log.critical("filename: "+tg.generate_name(transcriptions[0]['text'],"filename"))
         return transcriptions
     except Exception as e:
         logging.error(f"An error occurred during transcription: {e}")
