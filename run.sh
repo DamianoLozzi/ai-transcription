@@ -1,13 +1,9 @@
 #!/bin/bash
 
-# update the package list
 
 UPDATED=0
 
-# print start message in cyan
-
-
-
+# update the package list
 update_package_list() {
     if [ $UPDATED -eq 0 ]; then
         echo -e "\e[36mUpdating package list\e[0m"

@@ -6,8 +6,9 @@ from tempfile import NamedTemporaryFile
 from df.enhance import enhance, init_df, load_audio,save_audio
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
-import custom_logger as logging 
-
+import custom_logger as log 
+import torch
+import psutil
 
 
 class AudioEnhancement:
@@ -20,12 +21,12 @@ class AudioEnhancement:
     def enhance_audio(self, audio_file):
         try:
             audio, sample_rate = load_audio(audio_file)
-            logging.info("Enhancing audio...")
+            log.info("Enhancing audio...")
             enhanced_audio = enhance(self.model, self.df_state, audio)
-            logging.info("Audio enhanced.")
+            log.info("Audio enhanced.")
             return enhanced_audio, sample_rate
         except Exception as e:
-            logging.error(f"Error enhancing audio: {e}")
+            log.error(f"Error enhancing audio: {e}")
             return None, None
     
     def enhance_and_save_as_temp_file(self, audio_file):
@@ -34,11 +35,11 @@ class AudioEnhancement:
             try:
                 with NamedTemporaryFile(delete=False, suffix=".wav", dir="/tmp") as temp_file:
                     save_audio(temp_file.name, enhanced_audio, sample_rate)
-                    logging.info(f"Audio saved as {temp_file.name}")
+                    log.info(f"Audio saved as {temp_file.name}")
                     self.temp_files.append(temp_file.name)
                     return temp_file.name
             except Exception as e:
-                logging.error(f"Error saving enhanced audio: {e}")
+                log.error(f"Error saving enhanced audio: {e}")
                 return None
         else:
             return None
@@ -67,7 +68,7 @@ class Diarization:
     def load_audio(self):
         try:
             self.audio, self.sample_rate = sf.read(self.audio_file)
-            logging.info(f"Loaded audio with {len(self.audio)} samples at {self.sample_rate} Hz")
+            log.info(f"Loaded audio with {len(self.audio)} samples at {self.sample_rate} Hz")
         except Exception as e:
             logging.warning(f"Error Loading file, attempting to convert audio file to wav: {e}")
             try:
@@ -81,14 +82,15 @@ class Diarization:
                 return None, None
  
 
+
     def diarize_audio(self):
         try:
-            logging.info("Loading diarization model...")
+            log.info("Loading diarization model...")
             if self.num_speakers is not None:
-                logging.info(f"Diarizing audio with {self.num_speakers} speakers...")
+                log.info(f"Diarizing audio with {self.num_speakers} speakers...")
                 self.segments = self.diar.diarize(self.audio_file, num_speakers=self.num_speakers)
             else:
-                logging.info(f"Diarizing audio with threshold {self.threshold}...")
+                log.info(f"Diarizing audio with threshold {self.threshold}...")
                 self.segments = self.diar.diarize(self.audio_file, threshold=self.threshold)
             for segment in self.segments:
                 start_time = segment['start']
@@ -97,14 +99,14 @@ class Diarization:
                 start_sample = int(start_time * self.sample_rate)
                 end_sample = int(end_time * self.sample_rate)
 
-                logging.info(f"Segment: {label}, Start: {start_time}, End: {end_time}, Start Sample: {start_sample}, End Sample: {end_sample}")
+                log.info(f"Segment: {label}, Start: {start_time}, End: {end_time}, Start Sample: {start_sample}, End Sample: {end_sample}")
             #Delete the converted audio file
             file_name=self.audio_file.split('/')[-1].split('.')[0]+"_converted.wav"
-            logging.info("Deleting converted audio file {}".format(file_name))
+            log.info("Deleting converted audio file {}".format(file_name))
             os.remove("/tmp/"+file_name)
-            logging.info("Diarization complete.")
+            log.info("Diarization complete.")
         except Exception as e:
-            logging.error(f"Error diarizing audio: {e}")
+            log.error(f"Error diarizing audio: {e}")
             return None
 
 
@@ -127,7 +129,7 @@ class Diarization:
 
             return segments_by_speaker
         except Exception as e:
-            logging.error(f"Error segmenting audio by speaker: {e}")
+            log.error(f"Error segmenting audio by speaker: {e}")
             return None
 
     def save_segments_to_files(self, segments_by_speaker):
@@ -145,7 +147,7 @@ class Diarization:
                     # yield the speaker label
                     yield {'speaker': self.speaker, 'file_path': temp_file.name}   
         except Exception as e:
-            logging.error(f"Error saving segments to files: {e}")
+            log.error(f"Error saving segments to files: {e}")
             return None
 
         def count_total_speakers(self):
@@ -153,7 +155,7 @@ class Diarization:
                 speaker_ids = set(segment["label"] for segment in self.segments)
                 return len(speaker_ids)
             except Exception as e:
-                logging.error(f"Error counting total speakers: {e}")
+                log.error(f"Error counting total speakers: {e}")
                 return None
 
         def delete_converted_audio(self):
@@ -162,7 +164,7 @@ class Diarization:
                     audio_file_path = self.audio_file.split('.')[0]
                     os.remove(audio_file_path+'_converted.wav')
             except Exception as e:
-                logging.error(f"Error deleting converted audio: {e}")
+                log.error(f"Error deleting converted audio: {e}")
                 return None 
         
 
@@ -172,26 +174,26 @@ class AudioSegmentation:
         self.temp_files = []
     
     def load(self, file_path):
-        logging.info("Loading audio file...")
+        log.info("Loading audio file...")
         file_format=file_path.split('.')[-1]
-        logging.info(f"File format: {file_format}")
+        log.info(f"File format: {file_format}")
         self.file_object = AudioSegment.from_file(file_path, format=file_format)
-        logging.info(f"File {file_path} loaded.")
+        log.info(f"File {file_path} loaded.")
         
     def split_until_less_than_30_seconds(self,file_path):
         try:
-            logging.info("Splitting audio file until less than 30 seconds...")
+            log.info("Splitting audio file until less than 30 seconds...")
             file_format=file_path.split('.')[-1]
             file_object = AudioSegment.from_file(file_path, format=file_format)      
             if file_object.duration_seconds <= 30:
-                logging.info(f"yielding {file_path} as it is less than 30 seconds: {file_object.duration_seconds}")
+                log.info(f"yielding {file_path} as it is less than 30 seconds: {file_object.duration_seconds}")
                 #Save the file as a temporary file
                 with NamedTemporaryFile(suffix='.wav', delete=True) as temp_file:
                     file_object.export(temp_file.name, format="wav")
-                    logging.info(f"Saved temporary file {temp_file.name}")
+                    log.info(f"Saved temporary file {temp_file.name}")
                     yield temp_file.name
             else:
-                logging.info(f"Splitting {file_path} of duration {file_object.duration_seconds} into two halves...")
+                log.info(f"Splitting {file_path} of duration {file_object.duration_seconds} into two halves...")
                 half = len(file_object) // 2
                 left_half = file_object[:half]
                 right_half = file_object[half:]
@@ -207,7 +209,7 @@ class AudioSegmentation:
                     for right_segment in self.split_until_less_than_30_seconds(right_temp_file.name):
                         yield right_segment
         except Exception as e:
-            logging.error(f"Error splitting audio file: {e}")
+            log.error(f"Error splitting audio file: {e}")
             return None
         
 
@@ -215,7 +217,7 @@ class AudioSegmentation:
     def split_on_silence(self, file_path,min_silence_len=1000, silence_thresh=-60, keep_silence=250):
         try:
             file_format=file_path.split('.')[-1]
-            logging.info("Splitting audio file {file_path}  with format {file_format} on silence...")
+            log.info("Splitting audio file {file_path}  with format {file_format} on silence...")
             file_object = AudioSegment.from_file(file_path, format=file_format)
             segments_silence = split_on_silence(audio_segment=file_object,min_silence_len=min_silence_len, silence_thresh=silence_thresh, keep_silence=keep_silence)
             for segment in segments_silence:
@@ -224,21 +226,82 @@ class AudioSegmentation:
                     segment.export(file_name, format="wav")
                     yield file_name
         except Exception as e:
-            logging.error(f"Error splitting audio file on silence: {e}")
+            log.error(f"Error splitting audio file on silence: {e}")
             return None
             
 class Transcription:
     
     def __init__(self, model_name):
+        if model_name == "auto":
+            log.info("Evaluating model based on resources...")
+            model_name= self.select_model_based_on_resources()
+            log.info(f"Selected model: {model_name}")
+        log.debug(f"Loading model {model_name}...")
         self.model= whisper.load_model(model_name)
         self.temp_files = []
         
+    def bytes_to_gb(self,bytes) -> float:
+        try:
+            return bytes / 1024**3
+        except Exception as e:
+            log.error(f"Error converting bytes to GB: {e}")
+        
+    def select_model_based_on_resources(self):
+        try:
+            cuda_available = torch.cuda.is_available()
+            if cuda_available:
+                log.debug("CUDA is available")
+                video_ram_gb = self.bytes_to_gb(torch.cuda.get_device_properties(0).total_memory)
+                max_ram = self.select_model_based_on_ram(video_ram_gb)
+            else:
+                log.debug("CUDA is not available")
+                total_ram_gb = self.bytes_to_gb(psutil.virtual_memory().total)
+                log.debug(f"Total RAM: {total_ram_gb:.2f} GB")
+                available_ram_gb = self.bytes_to_gb(psutil.virtual_memory().available)
+                log.debug(f"Available RAM: {available_ram_gb:.2f} GB")
+                cores_num = psutil.cpu_count(logical=True)
+                log.debug(f"Number of cores: {cores_num}")
+                max_ram = self.select_model_based_on_cpu(available_ram_gb, cores_num)
+            return max_ram
+        except Exception as e:
+            log.error(f"Error selecting model: {e}")
+            return None
+        
+    def select_model_based_on_ram(self,ram_gb):
+        try:
+            selected_model= "tiny"
+            if ram_gb >= 16:
+                selected_model = "large"
+            elif ram_gb >= 8:
+                selected_model = "medium"
+            elif ram_gb >= 4:
+                selected_model = "small"
+            log.debug(f"Selected RAM value: {selected_model}")
+            return selected_model
+        except Exception as e:
+            log.error(f"Error selecting model based on RAM: {e}")
+            return None
+        
+    def select_model_based_on_cpu(self,ram_gb, cores):
+        try:
+            log.debug(f"Evaluating CPU resources: {ram_gb} GB RAM, {cores} cores")
+            if cores < 4:
+                log.debug("CPU has less than 4 cores, selecting 0.5 GB RAM")
+                return "tiny"
+            else:
+                log.debug("CPU has 4 or more cores, based on {ram_gb} GB RAM")
+            return self.select_model_based_on_ram(ram_gb)
+        except Exception as e:
+            log.error(f"Error selecting model based on CPU: {e}")
+            return None
+    
+        
     def transcribe(self, audio_file):
         try:
-            logging.info(f"Transcribing audio file {audio_file}...")
+            log.info(f"Transcribing audio file {audio_file}...")
             transcription=whisper.transcribe(self.model, audio_file)
-            logging.info(f"Transcription: {transcription['text']}")
+            log.debug(f"Transcription: {transcription['text']}")
             return transcription
         except Exception as e:
-            logging.error(f"Error transcribing audio: {e}")
+            log.error(f"Error transcribing audio: {e}")
             return None
