@@ -70,15 +70,15 @@ class Diarization:
             self.audio, self.sample_rate = sf.read(self.audio_file)
             log.info(f"Loaded audio with {len(self.audio)} samples at {self.sample_rate} Hz")
         except Exception as e:
-            logging.warning(f"Error Loading file, attempting to convert audio file to wav: {e}")
+            log.warning(f"Error Loading file, attempting to convert audio file to wav: {e}")
             try:
                 audio_file_path = self.audio_file.split('.')[0]
                 converted_audio_file = audio_file_path+'_converted.wav'
                 os.system(f"ffmpeg -i {self.audio_file} -acodec pcm_s16le -ac 1 -ar 16000 {converted_audio_file}")
                 self.audio, self.sample_rate = sf.read(converted_audio_file)
-                logging.info(f"Loaded audio with {len(self.audio)} samples at {self.sample_rate} Hz")
+                log.info(f"Loaded audio with {len(self.audio)} samples at {self.sample_rate} Hz")
             except Exception as e:
-                logging.error(f"Error converting audio file: {e}")
+                log.error(f"Error converting audio file: {e}")
                 return None, None
  
 
