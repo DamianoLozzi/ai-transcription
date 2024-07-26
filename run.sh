@@ -83,5 +83,9 @@ setup && echo -e "\e[32mSetup complete\e[0m" || (echo -e "\e[31mSetup failed\e[0
 
 
 # run the flask app
-echo -e "\e[36mRunning the flask app\e[0m"
-flask run && echo -e "\e[32mExited successfully\e[0m" || echo -e "\e[31mExited with error code $?\e[0m"
+#echo -e "\e[36mRunning the flask app\e[0m"
+#flask run && echo -e "\e[32mExited successfully\e[0m" || echo -e "\e[31mExited with error code $?\e[0m"
+
+# running gunicorn
+echo -e "\e[36mRunning the flask app through gunicorn\e[0m"
+gunicorn --config gunicorn_config.py app:app

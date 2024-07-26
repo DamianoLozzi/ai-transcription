@@ -17,7 +17,7 @@ enhance_lock = Lock()
 generate_lock = Lock()
 
 app = Flask(__name__)
-
+log.info("Started Flask app")
 
 @app.route('/enhance', methods=['POST'])
 def _enhance():
