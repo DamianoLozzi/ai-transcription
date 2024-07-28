@@ -63,7 +63,7 @@ def select_model_based_on_cpu(ram_gb, cores) -> float:
             log.debug("CPU has less than 4 cores, selecting 0.5 GB RAM")
             return 0.5
         else:
-            log.debug(f"CPU has 4 or more cores, based on {ram_gb} GB RAM")
+            log.debug("CPU has 4 or more cores, based on {ram_gb} GB RAM")
         return select_model_based_on_ram(ram_gb)
     except Exception as e:
         log.error(f"Error selecting model based on CPU: {e}")
