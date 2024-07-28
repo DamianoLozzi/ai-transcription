@@ -60,13 +60,3 @@ curl -X POST -F 'file=@path/to/your/audio/file' -F 'speakers=2' http://localhost
 ```
 
 Replace path/to/your/audio/file with the actual path to your audio file and adjust the speakers parameter as needed.
-
----
-
-**Contributing**
-Contributions to this project are welcome. Please ensure you follow the coding standards and write tests for new features.
-
-**License**
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-This README provides a basic overview and setup instructions for the project. For detailed documentation on the implementation and usage of each feature, refer to the source code and comments within the app.py and audio_processing.py files.

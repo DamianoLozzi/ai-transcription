@@ -10,4 +10,9 @@ RUN apt update && \
 
 RUN /bin/bash -c "pip install --no-cache-dir -r requirements.txt"
 
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl --fail http://localhost:8000/ || exit 1
+
 ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "app:app"]

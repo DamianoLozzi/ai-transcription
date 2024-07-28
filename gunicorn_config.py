@@ -16,7 +16,7 @@ workers=1
 
 log.info(f'Number of workers: {workers}')
 
-threads = int(os.environ.get('GUNICORN_THREADS', workers * 4))
+threads = int(os.environ.get('GUNICORN_THREADS', num_cores * 4))
 
 log.info(f'Number of threads: {threads}')
 
