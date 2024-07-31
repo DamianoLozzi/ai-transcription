@@ -6,10 +6,11 @@ from tempfile import NamedTemporaryFile
 from df.enhance import enhance, init_df, load_audio,save_audio
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
-import custom_logger as log 
+from custom_logger import Logger 
 import torch
 import psutil
 
+log=Logger()
 
 class AudioEnhancement:
     
@@ -58,11 +59,7 @@ class Diarization:
         self.audio_file = audio_file
         self.threshold = threshold
         self.segments = []
-        self.sample_rate = None
-        self.audio = None
-        self.file_name = audio_file.split('/')[-1].split('.')[0]
-        self.num_speakers = num_speakers
-        self.load_audio()
+        self.sample_rate = NoneDEBUG
         self.diarize_audio()
 
     def load_audio(self):
