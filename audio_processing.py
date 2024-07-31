@@ -59,7 +59,7 @@ class Diarization:
         self.audio_file = audio_file
         self.threshold = threshold
         self.segments = []
-        self.sample_rate = NoneDEBUG
+        self.sample_rate = None
         self.diarize_audio()
 
     def load_audio(self):
