@@ -60,6 +60,10 @@ class Diarization:
         self.threshold = threshold
         self.segments = []
         self.sample_rate = None
+        self.audio = None
+        self.file_name = audio_file.split('/')[-1].split('.')[0]
+        self.num_speakers = num_speakers
+        self.load_audio()
         self.diarize_audio()
 
     def load_audio(self):
