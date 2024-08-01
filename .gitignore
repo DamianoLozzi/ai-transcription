@@ -169,3 +169,4 @@ pretrained_models/spkrec-xvect-voxceleb/label_encoder.ckpt
 pretrained_models/spkrec-xvect-voxceleb/mean_var_norm_emb.ckpt
 pretrained_models/*
 response2.json
+app.json

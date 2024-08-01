@@ -49,7 +49,7 @@ def _transcribe():
         return 'No speakers part', 400
     try:
         file = request.files['file']
-        file_extension = file.filename.redis-cli keys "*"split('.')[-1]
+        file_extension = file.filename.split('.')[-1]
         speakers = int(request.form['speakers'])
         return transcribe(file,file_extension,speakers)
     except Exception as e:
