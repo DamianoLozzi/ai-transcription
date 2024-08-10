@@ -21,3 +21,4 @@ torch==2.2.0
 torchaudio==2.2.0
 torchvision==0.17.0
 gunicorn==22.0.0
+simple_logger @ git+https://github.com/DamianoLozzi/simple-logger.git

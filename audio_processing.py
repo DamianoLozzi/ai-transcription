@@ -6,11 +6,11 @@ from tempfile import NamedTemporaryFile
 from df.enhance import enhance, init_df, load_audio,save_audio
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
-from custom_logger import Logger 
+import simple_logger as sl
 import torch
 import psutil
 
-log=Logger()
+log=sl.Logger()
 
 class AudioEnhancement:
     

@@ -6,9 +6,9 @@ import os
 from threading import Lock
 import traceback
 import text_generation as tg
-from custom_logger import Logger
+import simple_logger as sl
 
-log = Logger()
+log = sl.Logger()
 
 
 audio_enhancement = AudioEnhancement()
