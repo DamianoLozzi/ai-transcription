@@ -3,9 +3,10 @@ import torch
 import re
 from typing import Literal
 import languagemodels as lm
-import custom_logger as log
+import simple_logger as sl
 from datetime import datetime
 
+log=sl.Logger()
 
 def bytes_to_gb(bytes) -> float:
     try:

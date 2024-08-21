@@ -1,15 +1,18 @@
-import os
-import whisper
-import soundfile as sf
-from simple_diarizer.diarizer import Diarizer
-from tempfile import NamedTemporaryFile
 from df.enhance import enhance, init_df, load_audio,save_audio
-from pydub import AudioSegment
+from simple_diarizer.diarizer import Diarizer
 from pydub.silence import split_on_silence
-import custom_logger as log 
-import torch
+from tempfile import NamedTemporaryFile
+from pydub import AudioSegment
+from typing import Optional
+import simple_logger as sl
+import soundfile as sf
+import numpy as np
+import whisper
 import psutil
+import torch
+import os
 
+log=sl.Logger()
 
 class AudioEnhancement:
     
@@ -54,18 +57,18 @@ class Diarization:
         self.temp_files = []
         
     
-    def load(self, audio_file, threshold=None, num_speakers=None):
-        self.audio_file = audio_file
-        self.threshold = threshold
-        self.segments = []
-        self.sample_rate = None
-        self.audio = None
-        self.file_name = audio_file.split('/')[-1].split('.')[0]
-        self.num_speakers = num_speakers
+    def load(self, audio_file : str, threshold: Optional[float] = None, num_speakers: Optional[int] = None):
+        self.audio_file : str = audio_file
+        self.threshold : float = threshold
+        self.segments : list = []
+        self.sample_rate : Optional[int] = None
+        self.audio : Optional[np.ndarray] = None
+        self.file_name : str = audio_file.split('/')[-1].split('.')[0]
+        self.num_speakers : Optional[int] = num_speakers
         self.load_audio()
         self.diarize_audio()
 
-    def load_audio(self):
+    def load_audio(self) -> tuple:
         try:
             self.audio, self.sample_rate = sf.read(self.audio_file)
             log.info(f"Loaded audio with {len(self.audio)} samples at {self.sample_rate} Hz")
@@ -289,7 +292,7 @@ class Transcription:
                 log.debug("CPU has less than 4 cores, selecting 0.5 GB RAM")
                 return "tiny"
             else:
-                log.debug("CPU has 4 or more cores, based on {ram_gb} GB RAM")
+                log.debug(f"CPU has 4 or more cores, based on {ram_gb} GB RAM")
             return self.select_model_based_on_ram(ram_gb)
         except Exception as e:
             log.error(f"Error selecting model based on CPU: {e}")

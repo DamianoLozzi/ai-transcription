@@ -1,6 +1,8 @@
 import os
 import psutil
-import custom_logger as log
+import simple_logger as sl
+
+log = sl.Logger()
 
 log.info('Starting Gunicorn configuration')
 
