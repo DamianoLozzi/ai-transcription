@@ -8,7 +8,7 @@ RUN apt update && \
     apt install -y ffmpeg git && \
     rm -rf /var/lib/apt/lists/*
 
-RUN /bin/bash -c "pip install --no-cache-dir -r requirements.txt"
+RUN /bin/bash -c "pip install --upgrade pip;pip install --no-cache-dir -r requirements.txt"
 
 EXPOSE 8000
 

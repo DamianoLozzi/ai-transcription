@@ -1,0 +1,505 @@
+[
+    {
+        "label": "enhance",
+        "importPath": "df.enhance",
+        "description": "df.enhance",
+        "isExtraImport": true,
+        "detail": "df.enhance",
+        "documentation": {}
+    },
+    {
+        "label": "init_df",
+        "importPath": "df.enhance",
+        "description": "df.enhance",
+        "isExtraImport": true,
+        "detail": "df.enhance",
+        "documentation": {}
+    },
+    {
+        "label": "load_audio",
+        "importPath": "df.enhance",
+        "description": "df.enhance",
+        "isExtraImport": true,
+        "detail": "df.enhance",
+        "documentation": {}
+    },
+    {
+        "label": "save_audio",
+        "importPath": "df.enhance",
+        "description": "df.enhance",
+        "isExtraImport": true,
+        "detail": "df.enhance",
+        "documentation": {}
+    },
+    {
+        "label": "Diarizer",
+        "importPath": "simple_diarizer.diarizer",
+        "description": "simple_diarizer.diarizer",
+        "isExtraImport": true,
+        "detail": "simple_diarizer.diarizer",
+        "documentation": {}
+    },
+    {
+        "label": "split_on_silence",
+        "importPath": "pydub.silence",
+        "description": "pydub.silence",
+        "isExtraImport": true,
+        "detail": "pydub.silence",
+        "documentation": {}
+    },
+    {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "NamedTemporaryFile",
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "isExtraImport": true,
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "AudioSegment",
+        "importPath": "pydub",
+        "description": "pydub",
+        "isExtraImport": true,
+        "detail": "pydub",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Literal",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "simple_logger",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "simple_logger",
+        "description": "simple_logger",
+        "detail": "simple_logger",
+        "documentation": {}
+    },
+    {
+        "label": "soundfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "soundfile",
+        "description": "soundfile",
+        "detail": "soundfile",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "whisper",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "whisper",
+        "description": "whisper",
+        "detail": "whisper",
+        "documentation": {}
+    },
+    {
+        "label": "psutil",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "psutil",
+        "description": "psutil",
+        "detail": "psutil",
+        "documentation": {}
+    },
+    {
+        "label": "torch",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "torch",
+        "description": "torch",
+        "detail": "torch",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "languagemodels",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "languagemodels",
+        "description": "languagemodels",
+        "detail": "languagemodels",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Diarization",
+        "importPath": "src.audio_processing",
+        "description": "src.audio_processing",
+        "isExtraImport": true,
+        "detail": "src.audio_processing",
+        "documentation": {}
+    },
+    {
+        "label": "AudioEnhancement",
+        "importPath": "src.audio_processing",
+        "description": "src.audio_processing",
+        "isExtraImport": true,
+        "detail": "src.audio_processing",
+        "documentation": {}
+    },
+    {
+        "label": "Transcription",
+        "importPath": "src.audio_processing",
+        "description": "src.audio_processing",
+        "isExtraImport": true,
+        "detail": "src.audio_processing",
+        "documentation": {}
+    },
+    {
+        "label": "AudioSegmentation",
+        "importPath": "src.audio_processing",
+        "description": "src.audio_processing",
+        "isExtraImport": true,
+        "detail": "src.audio_processing",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "send_file",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "src.text_generation",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "src.text_generation",
+        "description": "src.text_generation",
+        "detail": "src.text_generation",
+        "documentation": {}
+    },
+    {
+        "label": "Lock",
+        "importPath": "threading",
+        "description": "threading",
+        "isExtraImport": true,
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "traceback",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "traceback",
+        "description": "traceback",
+        "detail": "traceback",
+        "documentation": {}
+    },
+    {
+        "label": "AudioEnhancement",
+        "kind": 6,
+        "importPath": "src.audio_processing",
+        "description": "src.audio_processing",
+        "peekOfCode": "class AudioEnhancement:\n    def __init__(self):\n        self.model, self.df_state, _ = init_df()\n        self.temp_files = []\n    def enhance_audio(self, audio_file):\n        try:\n            audio, sample_rate = load_audio(audio_file)\n            log.info(\"Enhancing audio...\")\n            enhanced_audio = enhance(self.model, self.df_state, audio)\n            log.info(\"Audio enhanced.\")",
+        "detail": "src.audio_processing",
+        "documentation": {}
+    },
+    {
+        "label": "Diarization",
+        "kind": 6,
+        "importPath": "src.audio_processing",
+        "description": "src.audio_processing",
+        "peekOfCode": "class Diarization:\n    def __init__(self, embed_model='xvec', cluster_method='sc'):\n        self.temp_files = []\n        self.embed_model = embed_model\n        self.cluster_method = cluster_method\n        self.diar = Diarizer(embed_model=self.embed_model, cluster_method=self.cluster_method)\n        self.temp_files = []\n    def load(self, audio_file : str, threshold: Optional[float] = None, num_speakers: Optional[int] = None):\n        self.audio_file : str = audio_file\n        self.threshold : float = threshold",
+        "detail": "src.audio_processing",
+        "documentation": {}
+    },
+    {
+        "label": "AudioSegmentation",
+        "kind": 6,
+        "importPath": "src.audio_processing",
+        "description": "src.audio_processing",
+        "peekOfCode": "class AudioSegmentation:\n    def __init__(self):\n        self.temp_files = []\n    def load(self, file_path):\n        log.info(\"Loading audio file...\")\n        file_format=file_path.split('.')[-1]\n        log.info(f\"File format: {file_format}\")\n        self.file_object = AudioSegment.from_file(file_path, format=file_format)\n        log.info(f\"File {file_path} loaded.\")\n    def split_until_less_than_30_seconds(self,file_path):",
+        "detail": "src.audio_processing",
+        "documentation": {}
+    },
+    {
+        "label": "Transcription",
+        "kind": 6,
+        "importPath": "src.audio_processing",
+        "description": "src.audio_processing",
+        "peekOfCode": "class Transcription:\n    def __init__(self, model_name):\n        if model_name == \"auto\":\n            log.info(\"Evaluating model based on resources...\")\n            model_name= self.select_model_based_on_resources()\n            log.info(f\"Selected model: {model_name}\")\n        log.debug(f\"Loading model {model_name}...\")\n        self.model= whisper.load_model(model_name)\n        self.temp_files = []\n    def bytes_to_gb(self,bytes) -> float:",
+        "detail": "src.audio_processing",
+        "documentation": {}
+    },
+    {
+        "label": "bytes_to_gb",
+        "kind": 2,
+        "importPath": "src.text_generation",
+        "description": "src.text_generation",
+        "peekOfCode": "def bytes_to_gb(bytes) -> float:\n    try:\n        return bytes / 1024**3\n    except Exception as e:\n        log.error(f\"Error converting bytes to GB: {e}\")\ndef select_model_based_on_resources() -> float:\n    try:\n        log.debug(\"Selecting model based on available resources\")\n        cuda_available : bool = torch.cuda.is_available()\n        if cuda_available:",
+        "detail": "src.text_generation",
+        "documentation": {}
+    },
+    {
+        "label": "select_model_based_on_resources",
+        "kind": 2,
+        "importPath": "src.text_generation",
+        "description": "src.text_generation",
+        "peekOfCode": "def select_model_based_on_resources() -> float:\n    try:\n        log.debug(\"Selecting model based on available resources\")\n        cuda_available : bool = torch.cuda.is_available()\n        if cuda_available:\n            log.debug(\"CUDA is available\")\n            video_ram_gb : float = bytes_to_gb(torch.cuda.get_device_properties(0).total_memory)\n            max_ram : float = select_model_based_on_ram(video_ram_gb)\n        else:\n            log.debug(\"CUDA is not available\")",
+        "detail": "src.text_generation",
+        "documentation": {}
+    },
+    {
+        "label": "select_model_based_on_ram",
+        "kind": 2,
+        "importPath": "src.text_generation",
+        "description": "src.text_generation",
+        "peekOfCode": "def select_model_based_on_ram(ram_gb) -> float:\n    try:\n        log.debug(f\"Selecting model based on RAM: {ram_gb} GB\")\n        selected_ram_value : float = 0.5\n        if ram_gb >= 8:\n            selected_ram_value = 8\n        elif ram_gb >= 4:\n            selected_ram_value = 4\n        elif ram_gb >= 2:\n            selected_ram_value = 2",
+        "detail": "src.text_generation",
+        "documentation": {}
+    },
+    {
+        "label": "select_model_based_on_cpu",
+        "kind": 2,
+        "importPath": "src.text_generation",
+        "description": "src.text_generation",
+        "peekOfCode": "def select_model_based_on_cpu(ram_gb, cores) -> float:\n    try:\n        if cores < 4:\n            log.debug(\"CPU has less than 4 cores, selecting 0.5 GB RAM\")\n            return 0.5\n        else:\n            log.debug(f\"CPU has 4 or more cores, based on {ram_gb} GB RAM\")\n        return select_model_based_on_ram(ram_gb)\n    except Exception as e:\n        log.error(f\"Error selecting model based on CPU: {e}\")",
+        "detail": "src.text_generation",
+        "documentation": {}
+    },
+    {
+        "label": "generate_name",
+        "kind": 2,
+        "importPath": "src.text_generation",
+        "description": "src.text_generation",
+        "peekOfCode": "def generate_name(text, type: Literal['filename','title']) -> str:\n    try:\n        log.debug(f\"Generating file name for text: {text}\")\n        name = lm.do(f\"generate a short title for this text: {text}\")\n        log.debug(f\"Generated file name: {name}\")\n        name= re.sub(r\"[^ a-zA-Z0-9]+\",'',name).strip()\n        if type == 'filename':\n            name=name.replace(\" \", \"_\").lower() + \"_\" + str(datetime.now().strftime(\"%Y%m%d%H%M%S\"))\n        return name\n    except Exception as e:",
+        "detail": "src.text_generation",
+        "documentation": {}
+    },
+    {
+        "label": "generate_summary",
+        "kind": 2,
+        "importPath": "src.text_generation",
+        "description": "src.text_generation",
+        "peekOfCode": "def generate_summary(text) -> str:\n    try:\n        log.debug(f\"Generating summary for text: {text}\")\n        summary = lm.do(f\"generate a summary for this text: {text}\")\n        log.debug(f\"Generated summary: {summary}\")\n        return summary\n    except Exception as e:\n        log.error(f\"Error generating summary: {e}\")",
+        "detail": "src.text_generation",
+        "documentation": {}
+    },
+    {
+        "label": "max_ram",
+        "kind": 5,
+        "importPath": "src.text_generation",
+        "description": "src.text_generation",
+        "peekOfCode": "max_ram = select_model_based_on_resources()\ndef generate_name(text, type: Literal['filename','title']) -> str:\n    try:\n        log.debug(f\"Generating file name for text: {text}\")\n        name = lm.do(f\"generate a short title for this text: {text}\")\n        log.debug(f\"Generated file name: {name}\")\n        name= re.sub(r\"[^ a-zA-Z0-9]+\",'',name).strip()\n        if type == 'filename':\n            name=name.replace(\" \", \"_\").lower() + \"_\" + str(datetime.now().strftime(\"%Y%m%d%H%M%S\"))\n        return name",
+        "detail": "src.text_generation",
+        "documentation": {}
+    },
+    {
+        "label": "transcribe",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def transcribe(file,suffix,speakers):\n    try:\n        temp_file = tempfile.NamedTemporaryFile(delete=True,suffix='.'+suffix)\n        file_content = file.read()  \n        temp_file.write(file_content)\n        temp_file.flush()  \n        temp_file_path = temp_file.name\n        # Transcribe\n        transcriptions = []\n        if speakers == 1:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "enhance",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def enhance(file):\n    try:\n        temp_file = tempfile.NamedTemporaryFile(delete=True)\n        file_content = file.read()  \n        temp_file.write(file_content)\n        temp_file.flush()  \n        temp_file_path = temp_file.name\n        with enhance_lock:\n            enhanced_file_path = audio_enhancement.enhance_and_save_as_temp_file(temp_file_path)\n        temp_file.close()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "log = sl.Logger()\naudio_enhancement = AudioEnhancement()\naus=AudioSegmentation()\ntranscriber=Transcription(\"auto\")\ntranscribe_lock = Lock()\nenhance_lock = Lock()\ngenerate_lock = Lock()\napp = Flask(__name__)\nlog.info(\"Started Flask app\")\n@app.route('/enhance', methods=['POST'])",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "audio_enhancement",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "audio_enhancement = AudioEnhancement()\naus=AudioSegmentation()\ntranscriber=Transcription(\"auto\")\ntranscribe_lock = Lock()\nenhance_lock = Lock()\ngenerate_lock = Lock()\napp = Flask(__name__)\nlog.info(\"Started Flask app\")\n@app.route('/enhance', methods=['POST'])\ndef _enhance():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "transcribe_lock",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "transcribe_lock = Lock()\nenhance_lock = Lock()\ngenerate_lock = Lock()\napp = Flask(__name__)\nlog.info(\"Started Flask app\")\n@app.route('/enhance', methods=['POST'])\ndef _enhance():\n    try:\n        log.info(\"Received request to enhance audio\")\n        if 'file' not in request.files:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "enhance_lock",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "enhance_lock = Lock()\ngenerate_lock = Lock()\napp = Flask(__name__)\nlog.info(\"Started Flask app\")\n@app.route('/enhance', methods=['POST'])\ndef _enhance():\n    try:\n        log.info(\"Received request to enhance audio\")\n        if 'file' not in request.files:\n            return 'No file part', 400",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "generate_lock",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "generate_lock = Lock()\napp = Flask(__name__)\nlog.info(\"Started Flask app\")\n@app.route('/enhance', methods=['POST'])\ndef _enhance():\n    try:\n        log.info(\"Received request to enhance audio\")\n        if 'file' not in request.files:\n            return 'No file part', 400\n        file = request.files['file']",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\nlog.info(\"Started Flask app\")\n@app.route('/enhance', methods=['POST'])\ndef _enhance():\n    try:\n        log.info(\"Received request to enhance audio\")\n        if 'file' not in request.files:\n            return 'No file part', 400\n        file = request.files['file']\n        temp_dir = tempfile.mkdtemp()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "kind": 5,
+        "importPath": "gunicorn_config",
+        "description": "gunicorn_config",
+        "peekOfCode": "log = sl.Logger()\nlog.info('Starting Gunicorn configuration')\nnum_cores = psutil.cpu_count(logical=False)\nnum_threads = psutil.cpu_count(logical=True)\nlog.info(f'Number of cores: {num_cores}')\nlog.info(f'Number of threads: {num_threads}')\n#workers = int(os.environ.get('GUNICORN_PROCESSES', max(1, num_cores - 1)))\nworkers=1\nlog.info(f'Number of workers: {workers}')\nthreads = int(os.environ.get('GUNICORN_THREADS', num_cores * 4))",
+        "detail": "gunicorn_config",
+        "documentation": {}
+    },
+    {
+        "label": "num_cores",
+        "kind": 5,
+        "importPath": "gunicorn_config",
+        "description": "gunicorn_config",
+        "peekOfCode": "num_cores = psutil.cpu_count(logical=False)\nnum_threads = psutil.cpu_count(logical=True)\nlog.info(f'Number of cores: {num_cores}')\nlog.info(f'Number of threads: {num_threads}')\n#workers = int(os.environ.get('GUNICORN_PROCESSES', max(1, num_cores - 1)))\nworkers=1\nlog.info(f'Number of workers: {workers}')\nthreads = int(os.environ.get('GUNICORN_THREADS', num_cores * 4))\nlog.info(f'Number of threads: {threads}')\nbind = os.environ.get('GUNICORN_BIND', '0.0.0.0:8080')",
+        "detail": "gunicorn_config",
+        "documentation": {}
+    },
+    {
+        "label": "num_threads",
+        "kind": 5,
+        "importPath": "gunicorn_config",
+        "description": "gunicorn_config",
+        "peekOfCode": "num_threads = psutil.cpu_count(logical=True)\nlog.info(f'Number of cores: {num_cores}')\nlog.info(f'Number of threads: {num_threads}')\n#workers = int(os.environ.get('GUNICORN_PROCESSES', max(1, num_cores - 1)))\nworkers=1\nlog.info(f'Number of workers: {workers}')\nthreads = int(os.environ.get('GUNICORN_THREADS', num_cores * 4))\nlog.info(f'Number of threads: {threads}')\nbind = os.environ.get('GUNICORN_BIND', '0.0.0.0:8080')\n#forwarded_allow_ips = '*'",
+        "detail": "gunicorn_config",
+        "documentation": {}
+    },
+    {
+        "label": "#workers",
+        "kind": 5,
+        "importPath": "gunicorn_config",
+        "description": "gunicorn_config",
+        "peekOfCode": "#workers = int(os.environ.get('GUNICORN_PROCESSES', max(1, num_cores - 1)))\nworkers=1\nlog.info(f'Number of workers: {workers}')\nthreads = int(os.environ.get('GUNICORN_THREADS', num_cores * 4))\nlog.info(f'Number of threads: {threads}')\nbind = os.environ.get('GUNICORN_BIND', '0.0.0.0:8080')\n#forwarded_allow_ips = '*'\n#secure_scheme_headers = { 'X-FORWARDED-PROTO': 'https' }",
+        "detail": "gunicorn_config",
+        "documentation": {}
+    },
+    {
+        "label": "threads",
+        "kind": 5,
+        "importPath": "gunicorn_config",
+        "description": "gunicorn_config",
+        "peekOfCode": "threads = int(os.environ.get('GUNICORN_THREADS', num_cores * 4))\nlog.info(f'Number of threads: {threads}')\nbind = os.environ.get('GUNICORN_BIND', '0.0.0.0:8080')\n#forwarded_allow_ips = '*'\n#secure_scheme_headers = { 'X-FORWARDED-PROTO': 'https' }",
+        "detail": "gunicorn_config",
+        "documentation": {}
+    },
+    {
+        "label": "bind",
+        "kind": 5,
+        "importPath": "gunicorn_config",
+        "description": "gunicorn_config",
+        "peekOfCode": "bind = os.environ.get('GUNICORN_BIND', '0.0.0.0:8080')\n#forwarded_allow_ips = '*'\n#secure_scheme_headers = { 'X-FORWARDED-PROTO': 'https' }",
+        "detail": "gunicorn_config",
+        "documentation": {}
+    },
+    {
+        "label": "#forwarded_allow_ips",
+        "kind": 5,
+        "importPath": "gunicorn_config",
+        "description": "gunicorn_config",
+        "peekOfCode": "#forwarded_allow_ips = '*'\n#secure_scheme_headers = { 'X-FORWARDED-PROTO': 'https' }",
+        "detail": "gunicorn_config",
+        "documentation": {}
+    },
+    {
+        "label": "#secure_scheme_headers",
+        "kind": 5,
+        "importPath": "gunicorn_config",
+        "description": "gunicorn_config",
+        "peekOfCode": "#secure_scheme_headers = { 'X-FORWARDED-PROTO': 'https' }",
+        "detail": "gunicorn_config",
+        "documentation": {}
+    }
+]

@@ -1,20 +1,19 @@
+from src.audio_processing import Diarization, AudioEnhancement, Transcription, AudioSegmentation
 from flask import Flask, request, send_file
-from audio_processing import Diarization,AudioEnhancement, Transcription, AudioSegmentation
-import numpy as np
-import tempfile
-import os
+import src.text_generation as tg
+import simple_logger as sl
 from threading import Lock
 import traceback
-import text_generation as tg
-import simple_logger as sl
+import tempfile
+import os
 
 log = sl.Logger()
-
 
 audio_enhancement = AudioEnhancement()
 aus=AudioSegmentation()
 transcriber=Transcription("auto")
 transcribe_lock = Lock()
+
 enhance_lock = Lock()
 generate_lock = Lock()
 
@@ -65,7 +64,7 @@ def transcribe(file,suffix,speakers):
         temp_file.write(file_content)
         temp_file.flush()  
         temp_file_path = temp_file.name
-        # Transcribe
+
         transcriptions = []
         if speakers == 1:
             text = []
