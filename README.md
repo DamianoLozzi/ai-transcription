@@ -10,26 +10,38 @@ This project is designed to provide audio processing capabilities, including aud
  - **Transcription**: Converts speech in audio files to text, supporting both single-speaker and multi-speaker audio files.
 
 ## Installation
-To set up the project, ensure you have Python installed on your system. Then, follow these steps:
+To set up the project,  you can either run the **run.sh** script or follow the steps below:
 
- 1. Clone the repository to your local machine.
- 2. Install the required Python packages by running:
+1. Clone the repository:
+
+```bash
+git clone https://github.com/DamianoLozzi/transcription-service.git
+```
+
+2. Install the required packages:
+
 ```bash
 pip install -r requirements.txt
 ```
- 3. Download and place the pretrained models in the pretrained_models/spkrec-xvect-voxceleb/ directory.
+
 
 ## Usage
 The project is structured as a Flask web application, providing endpoints for audio enhancement and transcription.
 
 ## Starting the Server
-Run the Flask application by executing:
+
+Run the following command to start gunicon server
 
 ```bash
-flask run
+gunicorn --config gunicorn_config.py app:app
 ```
 
-This will start the server on localhost with the default port 5000.
+Alternatively, you can run the docker container by executing the following commands:
+
+```bash
+docker build -t transcription-service .
+docker run -p 5000:5000 transcription-service # Replace 5000 with the desired port
+```
 
 ## Endpoints
 
@@ -59,4 +71,10 @@ To transcribe an audio file with multiple speakers, you can use the following cu
 curl -X POST -F 'file=@path/to/your/audio/file' -F 'speakers=2' http://localhost:5000/transcribe
 ```
 
-Replace path/to/your/audio/file with the actual path to your audio file and adjust the speakers parameter as needed.
+or
+
+```bash
+curl -X POST -F 'file=@path/to/your/audio/file' -F 'threshold=0.5' http://localhost:5000/transcribe
+```
+
+Replace path/to/your/audio/file with the actual path to your audio file and adjust the speakers/threshold parameter as needed.

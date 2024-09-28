@@ -22,6 +22,7 @@ class AudioEnhancement:
            
         
     def enhance_audio(self, audio_file):
+        
         try:
             audio, sample_rate = load_audio(audio_file)
             log.info("Enhancing audio...")
@@ -33,6 +34,7 @@ class AudioEnhancement:
             return None, None
     
     def enhance_and_save_as_temp_file(self, audio_file):
+        
         enhanced_audio, sample_rate = self.enhance_audio(audio_file)
         if enhanced_audio is not None:
             try:
@@ -50,6 +52,7 @@ class AudioEnhancement:
 class Diarization:
     
     def __init__(self, embed_model='xvec', cluster_method='sc'):
+        
         self.temp_files = []
         self.embed_model = embed_model
         self.cluster_method = cluster_method
@@ -58,6 +61,7 @@ class Diarization:
         
     
     def load(self, audio_file : str, threshold: Optional[float] = None, num_speakers: Optional[int] = None):
+        
         self.audio_file : str = audio_file
         self.threshold : float = threshold
         self.segments : list = []
@@ -69,6 +73,7 @@ class Diarization:
         self.diarize_audio()
 
     def load_audio(self) -> tuple:
+        
         try:
             self.audio, self.sample_rate = sf.read(self.audio_file)
             log.info(f"Loaded audio with {len(self.audio)} samples at {self.sample_rate} Hz")
@@ -87,6 +92,7 @@ class Diarization:
 
 
     def diarize_audio(self):
+        
         try:
             log.info("Loading diarization model...")
             if self.num_speakers is not None:
@@ -103,7 +109,7 @@ class Diarization:
                 end_sample = int(end_time * self.sample_rate)
 
                 log.info(f"Segment: {label}, Start: {start_time}, End: {end_time}, Start Sample: {start_sample}, End Sample: {end_sample}")
-            #Delete the converted audio file
+
             file_name=self.audio_file.split('/')[-1].split('.')[0]+"_converted.wav"
             log.info("Deleting converted audio file {}".format(file_name))
             os.remove("/tmp/"+file_name)
@@ -114,6 +120,7 @@ class Diarization:
 
 
     def segment_audio_by_speaker(self):
+        
         try:
             segments_by_speaker = []
             segment_counter = 0
@@ -136,6 +143,7 @@ class Diarization:
             return None
 
     def save_segments_to_files(self, segments_by_speaker):
+        
         try:
             for idx, segment in enumerate(segments_by_speaker):
                 start_time = segment['start']
@@ -147,13 +155,14 @@ class Diarization:
 
                 with NamedTemporaryFile(suffix='.wav', delete=True) as temp_file:
                     sf.write(temp_file.name, segment_audio, self.sample_rate)
-                    # yield the speaker label
+
                     yield {'speaker': self.speaker, 'file_path': temp_file.name}   
         except Exception as e:
             log.error(f"Error saving segments to files: {e}")
             return None
 
         def count_total_speakers(self):
+            
             try:
                 speaker_ids = set(segment["label"] for segment in self.segments)
                 return len(speaker_ids)
@@ -162,6 +171,7 @@ class Diarization:
                 return None
 
         def delete_converted_audio(self):
+            
             try:
                 if not self.audio_file.endswith('_converted.wav'):
                     audio_file_path = self.audio_file.split('.')[0]
@@ -174,9 +184,11 @@ class Diarization:
 class AudioSegmentation:
     
     def __init__(self):
+        
         self.temp_files = []
     
     def load(self, file_path):
+        
         log.info("Loading audio file...")
         file_format=file_path.split('.')[-1]
         log.info(f"File format: {file_format}")
@@ -184,13 +196,14 @@ class AudioSegmentation:
         log.info(f"File {file_path} loaded.")
         
     def split_until_less_than_30_seconds(self,file_path):
+        
         try:
             log.info("Splitting audio file until less than 30 seconds...")
             file_format=file_path.split('.')[-1]
             file_object = AudioSegment.from_file(file_path, format=file_format)      
             if file_object.duration_seconds <= 30:
                 log.info(f"yielding {file_path} as it is less than 30 seconds: {file_object.duration_seconds}")
-                #Save the file as a temporary file
+
                 with NamedTemporaryFile(suffix='.wav', delete=True) as temp_file:
                     file_object.export(temp_file.name, format="wav")
                     log.info(f"Saved temporary file {temp_file.name}")
@@ -200,13 +213,13 @@ class AudioSegmentation:
                 half = len(file_object) // 2
                 left_half = file_object[:half]
                 right_half = file_object[half:]
-                #Create a temp file for the left half
+
                 with NamedTemporaryFile(suffix='.wav', delete=True) as left_temp_file:
                     left_half.export(left_temp_file.name, format="wav")
                     for left_segment in self.split_until_less_than_30_seconds(left_temp_file.name):
                         yield left_segment
 
-                #Create a temp file for the right half
+
                 with NamedTemporaryFile(suffix='.wav', delete=True) as right_temp_file:
                     right_half.export(right_temp_file.name, format="wav")
                     for right_segment in self.split_until_less_than_30_seconds(right_temp_file.name):
@@ -218,6 +231,7 @@ class AudioSegmentation:
 
             
     def split_on_silence(self, file_path,min_silence_len=1000, silence_thresh=-60, keep_silence=250):
+        
         try:
             file_format=file_path.split('.')[-1]
             log.info("Splitting audio file {file_path}  with format {file_format} on silence...")
@@ -271,6 +285,7 @@ class Transcription:
             return None
         
     def select_model_based_on_ram(self,ram_gb):
+        
         try:
             selected_model= "tiny"
             if ram_gb >= 16:
@@ -286,6 +301,7 @@ class Transcription:
             return None
         
     def select_model_based_on_cpu(self,ram_gb, cores):
+        
         try:
             log.debug(f"Evaluating CPU resources: {ram_gb} GB RAM, {cores} cores")
             if cores < 4:
@@ -300,6 +316,7 @@ class Transcription:
     
         
     def transcribe(self, audio_file):
+        
         try:
             log.info(f"Transcribing audio file {audio_file}...")
             transcription=whisper.transcribe(self.model, audio_file)
